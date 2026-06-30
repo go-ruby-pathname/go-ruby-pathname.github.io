@@ -1,0 +1,31 @@
+baseURL = "https://go-ruby-pathname.github.io/"
+title = "go-ruby-pathname"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[[params.phases]]
+  name = "Basename, dirname & extname"
+  status = "ready"
+  blurb = "`Basename`/`BasenameSuffix`, `Dirname`/`Parent` and `Extname`/`SubExt` follow MRI's rules byte-for-byte — including `File.extname`'s fiddly trailing-dot cases (`\"foo.\" → \".\"`, `\"a..b\" → \".b\"`) and the dotfile rule (`\".foo\" → \"\"`)."
+[[params.phases]]
+  name = "Cleanpath"
+  status = "ready"
+  blurb = "Collapses `.`, `..` and redundant separators exactly as MRI does: a `..` past the root of an absolute path is dropped, a `..` escaping a relative path is kept (`\"/a/../../b\" → \"/b\"`, `\"a/../../b\" → \"../b\"`)."
+[[params.phases]]
+  name = "RelativePathFrom"
+  status = "ready"
+  blurb = "MRI's lexical `relative_path_from` algorithm, with its two `ArgumentError` cases — mixing absolute and relative, and a `..` in the base — carrying MRI's exact message text."
+[[params.phases]]
+  name = "Join, split & traversal"
+  status = "ready"
+  blurb = "`Plus`/`Join` (`+`) where an absolute component resets to the root; `Split`/`EachFilename`/`Filenames` for the component list; and `Ascend`/`Descend` walking up to the root and back via Go-callback blocks."
+[[params.phases]]
+  name = "Predicates & comparison"
+  status = "ready"
+  blurb = "The `Absolute`/`Relative`/`Root` predicate trio, plus `Cmp` (`<=>`), `Eql` (`==`/`eql?`) and a stable FNV `Hash`."
+[[params.phases]]
+  name = "Differential oracle & coverage"
+  status = "ready"
+  blurb = "Every method checked against the system `ruby`'s `Pathname` over a corpus of edge cases; the deterministic ruby-free tests alone hold 100% coverage, gofmt + go vet clean, green across all six 64-bit Go arches and three OSes (incl. Windows)."
